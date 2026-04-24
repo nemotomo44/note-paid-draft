@@ -33,7 +33,7 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
-GROQ_API_KEY      = os.getenv("GEMINI_API_KEY")
+GROQ_API_KEY      = os.getenv("GROQ_API_KEY")
 NOTE_SESSION      = os.getenv("NOTE_SESSION", "")
 NOTE_EMAIL        = os.getenv("NOTE_EMAIL", "")
 NOTE_PASSWORD     = os.getenv("NOTE_PASSWORD", "")

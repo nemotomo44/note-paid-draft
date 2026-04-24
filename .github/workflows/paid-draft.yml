@@ -27,7 +27,7 @@ jobs:
 
       - name: 有料記事の下書きを作成
         env:
-          GEMINI_API_KEY:    ${{ secrets.GEMINI_API_KEY }}
+          GROQ_API_KEY:      ${{ secrets.GROQ_API_KEY }}
           NOTE_SESSION:      ${{ secrets.NOTE_SESSION }}
           NOTE_EMAIL:        ${{ secrets.NOTE_EMAIL }}
           NOTE_PASSWORD:     ${{ secrets.NOTE_PASSWORD }}
