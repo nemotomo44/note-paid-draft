@@ -1,0 +1,43 @@
+name: note 有料記事 下書き自動作成
+
+on:
+  schedule:
+    - cron: '0 21 * * *'   # 毎日 6:00 JST（21:00 UTC）
+    - cron: '0 2 * * *'    # 毎日 11:00 JST（02:00 UTC）
+  workflow_dispatch:        # 手動実行ボタンも有効化
+
+jobs:
+  create-paid-draft:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: リポジトリをチェックアウト
+        uses: actions/checkout@v4
+
+      - name: Python 3.11 をセットアップ
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: 依存パッケージをインストール
+        run: pip install -r requirements.txt
+
+      - name: Playwrightブラウザをインストール
+        run: playwright install chromium --with-deps
+
+      - name: 有料記事の下書きを作成
+        env:
+          GEMINI_API_KEY:    ${{ secrets.GEMINI_API_KEY }}
+          NOTE_SESSION:      ${{ secrets.NOTE_SESSION }}
+          NOTE_EMAIL:        ${{ secrets.NOTE_EMAIL }}
+          NOTE_PASSWORD:     ${{ secrets.NOTE_PASSWORD }}
+          NOTE_USER_URLNAME: moya_4
+        run: python create_paid_draft.py
+
+      - name: スクリーンショットをアップロード（デバッグ用）
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots-${{ github.run_id }}
+          path: logs/*.png
+          if-no-files-found: ignore
