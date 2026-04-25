@@ -108,18 +108,34 @@ _USER_AGENTS = [
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
 ]
 
-TITLE_PROMPT = """あなたはプロのコピーライターです。
+TITLE_PROMPT = """あなたはnoteで月10万円以上を稼ぐトップライターのタイトル戦略を熟知したコピーライターです。
 以下の条件を満たすnoteタイトルを1つだけ作成してください。
 
 【目的】
-noteの「全体ビュー数」「フォロワー数」「スキ」「コメント数」を増やすこと
+「スキ数が多い人気記事」「有料記事でも売れるタイトル」の両方を満たすこと
+
+【人気記事のタイトルパターン分析】
+note・副業ジャンルで実際にバズるタイトルには以下の法則があります。
+これらのパターンを参考に、今日の旬なテーマで作成すること。
+
+＜バズるパターン＞
+① 数字で具体性を出す
+  例）「月3万円を3ヶ月で達成した私の◯◯法」「1日30分で始める副業」
+② 読者の「before/after」を見せる
+  例）「会社員だった私がnoteだけで月5万円稼げた理由」
+③ 意外性・反論系
+  例）「副業で稼げない人がやっている3つの勘違い」「フォロワー0から始めて正解だった話」
+④ 共感・あるある系
+  例）「副業を始めて半年、正直しんどかった話」
+⑤ 具体的なノウハウ予告
+  例）「AIツール3つだけで記事を量産する私の手順書」
 
 【タイトル要件】
-- 読者が「お金を払ってでも読みたい」と思える価値を感じさせるタイトル
-- SEOでも検索されやすいキーワードを自然に含める
-- 表現は親しみやすさ or 共感重視、堅苦しすぎない
-- 読者が続きを読みたくなるような問い・具体性・メリットを含める
-- 毎回異なる切り口・視点・語尾・問いかけの形式を使うこと
+- 上記パターンのいずれかを必ず使う
+- 数字（期間・金額・ステップ数など）を1つ以上入れる
+- 読者が「自分にもできそう」と感じる再現性のある表現にする
+- 抽象的なワード（「稼ぐ力」「マインド」など）だけに頼らない
+- 毎回異なるパターン・切り口を使うこと
 
 {past_titles}
 
@@ -146,8 +162,22 @@ ARTICLE_PROMPT_TEMPLATE = """あなたは「もやし」というペンネーム
 - 書き出しは「知っていますか？」「正直に言うと〜」「〜って、ありませんか？」など読者に語りかける一文から始める
 - 難しい言葉・ビジネス敬語は使わない。話し言葉に近いテンポで書く
 - 「〜なんです」「〜でした」「〜ですよ」「〜だったりします」など柔らかい語尾を使う
-- キャッチーな表現を積極的に使う（例:「神」「沼る」「ぶっちゃけ」「秒で」「爆速」「やばい」）
 - 読者の悩みを「あるある」として共感してから、解決策を提示する流れ
+
+【具体性のルール】（最重要）
+記事全体を通じて、以下を必ず守ること。
+- 抽象的な表現だけで終わらせない。必ず「具体的な数字・ツール名・手順・期間・金額」とセットで書く
+  NG例）「AIを活用して効率化しましょう」
+  OK例）「ChatGPT-4oで記事構成を作り、Groqで本文を生成。この2ステップで1記事あたり30分に短縮できました」
+- 読者が「明日からそのままやれる」レベルの具体性を持たせる
+- 「私はこうしました」という一人称の実体験として書く（架空でも具体的に）
+
+【再現性のルール】（最重要）
+読者が「自分にもできる」と感じられるよう、以下を必ず含めること。
+- 始める前の状態（フォロワー数・収入・スキル）を明記する
+- 何をどの順番でやったか、ステップを番号付きで書く
+- どれくらいの期間・時間・費用がかかったか明記する
+- 失敗したこと・うまくいかなかったことも正直に書く（リアリティが再現性の信頼につながる）
 
 【記事の構成ルール】
 記事は「無料部分」と「有料部分」の2段構成にしてください。
@@ -156,9 +186,9 @@ ARTICLE_PROMPT_TEMPLATE = """あなたは「もやし」というペンネーム
 【無料部分】2,000文字以上（必ず守ること）
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 - もやし自身のリアルな失敗談・葛藤・転換点をストーリー形式で丁寧に語る（800文字以上）
-- 読者が「あ、私のことだ」と感じる具体的な悩みの描写（数字・状況・感情を込めて）
-- 「この記事を読めば○○できる」という明確なベネフィットを、体験ベースで説得力をもって提示
-- 有料部分で明かすノウハウの「予告」をして、続きを読みたくさせる引きで終わる
+  ※「副業を始めた月の収入0円」「3ヶ月目にようやく初収益◯円」など具体的な数字を入れる
+- 読者が「あ、私のことだ」と感じる悩みの描写（状況・感情・数字を具体的に）
+- 有料部分で明かすノウハウの「予告」で続きを読みたくさせる引きで終わる
 - 見出しは2〜3個設け、各章をしっかり書き込む
 
 出力後に以下のマーカーを1行で挿入してください：
@@ -172,18 +202,30 @@ ARTICLE_PROMPT_TEMPLATE = """あなたは「もやし」というペンネーム
 - 必要に応じて中見出し（###）を使ってもよい
 
 【有料部分に必ず含めること】
-- 具体的なステップ・手順（数字付きで実践できる内容）
-- 実際の数字・金額・期間など具体的なデータや実例
-- よくある失敗パターンとその対策（もやし自身の失敗談として語る）
-- 初心者でも明日から実践できるアドバイス
-- 読者が「これは払う価値があった」と感じるノウハウやインサイト
-- リアルなケーススタディ（もやし視点の体験談として具体的に）
+
+■ 再現性のある手順（最重要）
+- STEP1〜STEPnの形式で、初心者がそのまま実行できる手順を書く
+- 各ステップに「使うツール名」「かかる時間」「具体的な操作」を明記する
+- 「私はこの順番でやりました」という体験談として書く
+
+■ 具体的な数字・実績
+- 収益・フォロワー数・スキ数・作業時間など具体的な数字を各章に1つ以上入れる
+- 「1ヶ月目：◯円、2ヶ月目：◯円、3ヶ月目：◯円」のような推移を示す
+- 使ったツールは必ず名前を出す（例：ChatGPT、Claude、Canva、Notionなど）
+
+■ 失敗談とその対策
+- 実際にやらかした失敗を1〜2個、具体的なエピソードとして書く
+- 「何が原因だったか」「どう修正したか」をセットで書く
+- 読者が同じ失敗を避けられるよう、注意点を明記する
+
+■ ケーススタディ
+- もやし自身の具体的な1週間・1ヶ月の行動記録を書く
+- 「何曜日に何をした」「何時間かけた」「結果どうなった」まで書く
 
 【まとめ】
-- 記事全体の要点を簡潔にまとめる
-- もやし独自の視点と今後の展望
-- まとめの最後は「ぜひ試してみてください！」「気になった方はチェックしてみて」など背中を押す一言で締める
-- エモーショナルCTA（感謝＋共感＋スキ・フォロー・コメントへのやさしい行動喚起）を1〜2文
+- 「これだけやれば再現できる」という3点以内の要点まとめ
+- 読者への背中を押す一言（「最初の1記事さえ書けば変わります」など具体的なメッセージ）
+- エモーショナルCTA（感謝＋スキ・フォロー・コメントへのやさしい行動喚起）を1〜2文
 
 【共通ルール】
 - 一人称は「私」に統一
@@ -240,18 +282,27 @@ def get_google_trends() -> dict:
     return result
 
 
-def get_popular_note_articles(max_articles: int = 5) -> list:
-    """note.comの人気記事をタイトル・スキ数・概要つきで取得"""
+def get_popular_note_articles(max_articles: int = 8) -> list:
+    """note.comの人気記事をタイトル・スキ数・概要つきで詳細取得"""
     try:
         from bs4 import BeautifulSoup
     except ImportError:
         return []
 
     articles = []
-    search_queries = ["副業", "AI 副業", "note 収益化", "在宅 副業"]
+    # 副業・note収益化ジャンルを幅広く検索
+    search_queries = [
+        "副業 note",
+        "AI副業",
+        "note 収益化",
+        "在宅副業 初心者",
+        "フリーランス 月収",
+        "サラリーマン 副業",
+    ]
     headers = {
         "User-Agent": random.choice(_USER_AGENTS),
         "Accept-Language": "ja-JP,ja;q=0.9",
+        "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
     }
 
     for query in search_queries:
@@ -274,17 +325,18 @@ def get_popular_note_articles(max_articles: int = 5) -> list:
                 title = title_el.get_text(strip=True) if title_el else card.get_text(strip=True)[:60]
                 if not title or len(title) < 5:
                     continue
-                # 概要
-                desc_el = card.select_one("p, [class*='desc' i], [class*='body' i]")
-                desc = desc_el.get_text(strip=True)[:120] if desc_el else ""
+                # 概要（できるだけ長く取得）
+                desc_el = card.select_one("p, [class*='desc' i], [class*='body' i], [class*='excerpt' i]")
+                desc = desc_el.get_text(strip=True)[:200] if desc_el else ""
                 # スキ数
                 like_el = card.select_one("[class*='like' i], [class*='Like'], [class*='count' i]")
                 likes = like_el.get_text(strip=True) if like_el else ""
 
                 articles.append({
-                    "title": title[:80],
+                    "title": title[:100],
                     "desc": desc,
                     "likes": likes,
+                    "query": query,
                 })
         except Exception as e:
             logger.debug(f"note人気記事取得エラー: {e}")
@@ -298,6 +350,8 @@ def get_popular_note_articles(max_articles: int = 5) -> list:
             unique.append(a)
 
     logger.info(f"note人気記事: {len(unique)}件取得")
+    for a in unique[:5]:
+        logger.info(f"  [{a['likes']}スキ] {a['title']}")
     return unique
 
 
@@ -307,35 +361,43 @@ def build_trend_info() -> str:
     note_articles  = get_popular_note_articles()
 
     lines = ["【リアルタイムトレンド情報】（本日取得）"]
-    lines.append("※ 以下のトレンドを参考にタイトル・記事内容に自然に反映してください。\n")
+    lines.append("※ 以下を分析し、タイトル・記事内容に自然に反映してください。\n")
 
     # Googleトレンド
     if google_trends["rising"]:
         lines.append("■ Googleトレンド 急上昇ワード（過去7日・日本）")
+        lines.append("  → これらのワードは今まさに検索が急増しています。タイトルや本文に自然に組み込んでください。")
         for i, kw in enumerate(google_trends["rising"], 1):
             lines.append(f"  {i}. {kw}")
         lines.append("")
 
     if google_trends["top"]:
-        lines.append("■ Googleトレンド 人気ワード")
+        lines.append("■ Googleトレンド 安定人気ワード")
         for i, kw in enumerate(google_trends["top"], 1):
             lines.append(f"  {i}. {kw}")
         lines.append("")
 
-    # note人気記事
+    # note人気記事（詳細分析）
     if note_articles:
-        lines.append("■ note 人気記事（トレンド順）")
+        lines.append("■ note 人気記事（トレンド順） ※タイトル構成・切り口を参考にしてください")
+        lines.append("  → 以下の記事がなぜ読まれているか分析し、成功パターンをタイトルと構成に活かしてください。")
+        lines.append("  → 内容のコピーは禁止。パターン・切り口・読者の興味ポイントを学ぶこと。\n")
         for i, a in enumerate(note_articles, 1):
-            line = f"  {i}. 【{a['likes'] or 'スキ多数'}】{a['title']}"
-            if a["desc"]:
-                line += f"\n     概要: {a['desc']}"
+            line = f"  {i}. {a['title']}"
+            if a["likes"]:
+                line += f"（スキ: {a['likes']}）"
             lines.append(line)
+            if a["desc"]:
+                lines.append(f"     冒頭: {a['desc'][:150]}")
         lines.append("")
 
     if len(lines) <= 3:
-        return ""  # トレンド情報なし
+        return ""
 
-    lines.append("上記トレンドを踏まえ、今まさに読者が求めているテーマ・言葉を自然に盛り込んでください。")
+    lines.append("【分析のポイント】")
+    lines.append("- 人気記事のタイトルにある「数字」「before/after」「意外性」のパターンを活用する")
+    lines.append("- 読者が『自分ごと』と感じるテーマを選ぶ")
+    lines.append("- トレンドワードを記事の文脈に合わせて自然に使う")
     return "\n".join(lines)
 
 
