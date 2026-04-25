@@ -9,6 +9,8 @@ on:
 jobs:
   create-paid-draft:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: リポジトリをチェックアウト
@@ -33,6 +35,17 @@ jobs:
           NOTE_PASSWORD:     ${{ secrets.NOTE_PASSWORD }}
           NOTE_USER_URLNAME: moya_4
         run: python create_paid_draft.py
+
+      - name: 投稿済みタイトルを保存（コミット）
+        if: success()
+        run: |
+          git config --local user.email "github-actions@github.com"
+          git config --local user.name  "GitHub Actions"
+          git add posted_titles.json
+          git diff --staged --quiet && echo "変更なし、スキップ" && exit 0
+          git commit -m "chore: update posted titles [skip ci]"
+          git pull --rebase origin main
+          git push
 
       - name: スクリーンショットをアップロード（デバッグ用）
         if: always()
